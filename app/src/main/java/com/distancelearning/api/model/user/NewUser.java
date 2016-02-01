@@ -1,6 +1,10 @@
 package com.distancelearning.api.model.user;
 
 import com.google.gson.annotations.SerializedName;
+import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
 
 import java.io.Serializable;
 
@@ -9,12 +13,23 @@ import java.io.Serializable;
  */
 public class NewUser implements Serializable{
 
+    @NotEmpty
     @SerializedName("name") private String name;
+
     @SerializedName("surname") private String surname;
+
     @SerializedName("birthday") private String birthday;
+
     @SerializedName("phone") private String phone;
+
+    @NotEmpty
+    @Email
     @SerializedName("email") private String email;
+
+    @Password(min = 6, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE_SYMBOLS)
     @SerializedName("password") private String password;
+
+    @ConfirmPassword
     @SerializedName("password_confirmation") private String comfirmPassword;
 
     public NewUser(){}
