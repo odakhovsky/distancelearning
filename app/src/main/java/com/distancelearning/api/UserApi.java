@@ -1,12 +1,15 @@
 package com.distancelearning.api;
 
-import com.distancelearning.api.model.response.UserResponseBody;
 import com.distancelearning.api.model.response.SimpleResponseBody;
+import com.distancelearning.api.model.response.UserResponseBody;
 import com.distancelearning.api.model.user.NewUser;
 import com.distancelearning.api.model.user.User;
 import com.distancelearning.api.model.user.UserLogin;
 import com.distancelearning.api.rest.UserRest;
 
+import java.io.IOException;
+
+import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
@@ -42,7 +45,17 @@ public class UserApi {
         });
     }
 
-    public void auth(UserLogin login, final ResponseCallback<UserResponseBody> callback){
+    public User userByAccessToken(AccessToken accessToken) {
+        //todo
+        try {
+            Response<UserResponseBody> result = userRest.getUser(accessToken.accessToken).execute();
+            return result.body().getUser();
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    void auth(UserLogin login, final ResponseCallback<UserResponseBody> callback){
         checkCallbackImpl(callback);
 
         userRest.auth(login).enqueue(new Callback<UserResponseBody>() {
