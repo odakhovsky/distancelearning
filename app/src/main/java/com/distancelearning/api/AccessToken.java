@@ -204,7 +204,7 @@ public class AccessToken {
         return expiresIn > 0 && expiresIn * 1000 + created < System.currentTimeMillis();
     }
 
-    private static final String VK_SDK_ACCESS_TOKEN_PREF_KEY = "VK_SDK_ACCESS_TOKEN_PLEASE_DONT_TOUCH";
+    private static final String ACCESS_TOKEN_PREF_KEY = "ACCESS_TOKEN_PLEASE_DONT_TOUCH";
 
     private volatile static AccessToken sCurrentToken;
 
@@ -215,7 +215,7 @@ public class AccessToken {
         if (sCurrentToken == null) {
             synchronized (AccessToken.class) {
                 if (sCurrentToken == null) {
-                    sCurrentToken = AccessToken.tokenFromSharedPreferences(UIHelper.getApplicationContext(), VK_SDK_ACCESS_TOKEN_PREF_KEY);
+                    sCurrentToken = AccessToken.tokenFromSharedPreferences(UIHelper.getApplicationContext(), ACCESS_TOKEN_PREF_KEY);
                 }
             }
         }
@@ -233,7 +233,7 @@ public class AccessToken {
         if (sCurrentToken != null) {
             sCurrentToken.save();
         } else {
-            removeTokenAtKey(ctx, VK_SDK_ACCESS_TOKEN_PREF_KEY);
+            removeTokenAtKey(ctx, ACCESS_TOKEN_PREF_KEY);
         }
         return oldToken;
     }
@@ -242,7 +242,7 @@ public class AccessToken {
      * Saves this token into application shared preferences
      */
     public void save() {
-        saveTokenToSharedPreferences(UIHelper.getApplicationContext(), VK_SDK_ACCESS_TOKEN_PREF_KEY);
+        saveTokenToSharedPreferences(UIHelper.getApplicationContext(), ACCESS_TOKEN_PREF_KEY);
     }
 
 
